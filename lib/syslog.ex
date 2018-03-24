@@ -55,11 +55,11 @@ defmodule Logger.Backends.Syslog do
     hostname: _hostname, host: host, port: port, socket: socket} = state
 
     level_num = Logger.Syslog.Utils.level(level)
-    pre = :io_lib.format('<~B>~s ~s~p: ', [facility ||| level_num,
-      Logger.Syslog.Utils.iso8601_timestamp(ts), appid, self()])
+    # pre = :io_lib.format('<~B>~s ~s~p: ', [facility ||| level_num,
+    #   Logger.Syslog.Utils.iso8601_timestamp(ts), appid, self()])
     # packet = [pre, Logger.Formatter.format(format, level, msg, ts, Keyword.take(md, metadata))]
     packet = [Logger.Formatter.format(format, level, msg, ts, Keyword.take(md, metadata))]
-    IO.puts(inspect packet)
+    # IO.puts(inspect packet)
     if socket, do: :gen_udp.send(socket, host, port, packet)
   end
 end
